@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.12"
 jupyter = "^1.0.0"
 sympy = "^1.13.2"
+pytest = "^8.3.2"
 
 
 [build-system]
