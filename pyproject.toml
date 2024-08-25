@@ -1,16 +1,24 @@
 [tool.poetry]
 name = "projection_matrices"
 version = "0.1.0"
-description = ""
+description = "A library for working with perspective and orthographic projection matrices symbolically using Sympy."
 authors = ["LambdaXymox <lambda.xymox@gmail.com>"]
 readme = "README.md"
+license = "MIT OR Apache-2.0"
 
 [tool.poetry.dependencies]
 python = "^3.12"
 jupyter = "^1.0.0"
 sympy = "^1.13.2"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^7.1.1"
+flake8-pyproject = "^1.2.3"
 pytest = "^8.3.2"
 
+[tool.flake8]
+ignore = ['E202', 'E241']
+max-line-length = 120
 
 [build-system]
 requires = ["poetry-core"]

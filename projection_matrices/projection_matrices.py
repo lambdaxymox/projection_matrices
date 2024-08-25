@@ -7,7 +7,7 @@ from dataclasses import dataclass
 class FrustumBounds:
     """
     A data class describing the shape of the viewing frustum for a projection.
-    """    
+    """
     left: sympy.Symbol
     right: sympy.Symbol
     bottom: sympy.Symbol
@@ -35,7 +35,7 @@ class NDCBounds:
         v_max = self.vertical_max
         d_min = self.depth_min
         d_max = self.depth_max
-        
+
         return f'[{h_min}, {h_max}] x [{v_min}, {v_max}] x [{d_min} {d_max}]'
 
 
@@ -43,18 +43,18 @@ class NDCBounds:
 class FrustumFovBounds:
     """
     A data class describing the shape of the viewing frustum for a perspective projection.
-    """   
+    """
     aspect_ratio: sympy.Symbol
     vfov: sympy.Symbol
     near: sympy.Symbol
     far: sympy.Symbol
-    
+
 
 def perspective(frustum_bounds: FrustumBounds, ndc_bounds: NDCBounds) -> sympy.Matrix:
     """
     Generate an instance of a perspective projection in the canonical orthonormal frames.
 
-    The **canonical view space** is a vector space with a left-handed orthonormal frame 
+    The **canonical view space** is a vector space with a left-handed orthonormal frame
     defined as follows.
 
     * The **origin** of the coordinate system is `[0, 0, 0]^T`.
@@ -87,7 +87,7 @@ def perspective(frustum_bounds: FrustumBounds, ndc_bounds: NDCBounds) -> sympy.M
     * top    > 0
     * far    > near > 0
 
-    where the parameters define the placement of the planes. The plane placement 
+    where the parameters define the placement of the planes. The plane placement
     definitions follow.
 
     * `left` defines the location of the **left plane** by its distance along
@@ -113,7 +113,7 @@ def perspective(frustum_bounds: FrustumBounds, ndc_bounds: NDCBounds) -> sympy.M
     - frustum_bounds: The bounds of the frustum defined in terms of relative displacements
     along the coordinate axes.
     - ndc_bounds: The bounds of the viewing volume in normalized device coordinates.
-    
+
     Returns:
     - A 4x4 perspective projection matrix.
     """
@@ -124,7 +124,7 @@ def perspective(frustum_bounds: FrustumBounds, ndc_bounds: NDCBounds) -> sympy.M
     n = frustum_bounds.near
     f = frustum_bounds.far
 
-    h_min = ndc_bounds.horizontal_min 
+    h_min = ndc_bounds.horizontal_min
     h_max = ndc_bounds.horizontal_max
     v_min = ndc_bounds.vertical_min
     v_max = ndc_bounds.vertical_max
@@ -150,7 +150,7 @@ def perspective(frustum_bounds: FrustumBounds, ndc_bounds: NDCBounds) -> sympy.M
     c1r3 = 0
     c2r3 = 1
     c3r3 = 0
-    
+
     matrix = sympy.Matrix([
         [c0r0, c1r0, c2r0, c3r0],
         [c0r1, c1r1, c2r1, c3r1],
@@ -165,7 +165,7 @@ def orthographic(frustum_bounds: FrustumBounds, ndc_bounds: NDCBounds) -> sympy.
     """
     Generate an instance of a orthographic projection in the canonical orthonormal frames.
 
-    The **canonical view space** is a vector space with a left-handed orthonormal frame 
+    The **canonical view space** is a vector space with a left-handed orthonormal frame
     defined as follows.
 
     * The **origin** of the coordinate system is `[0, 0, 0]^T`.
@@ -198,7 +198,7 @@ def orthographic(frustum_bounds: FrustumBounds, ndc_bounds: NDCBounds) -> sympy.
     * top    > 0
     * far    > near > 0
 
-    where the parameters define the placement of the planes. The plane placement 
+    where the parameters define the placement of the planes. The plane placement
     definitions follow.
 
     * `left` defines the location of the **left plane** by its distance along
@@ -224,7 +224,7 @@ def orthographic(frustum_bounds: FrustumBounds, ndc_bounds: NDCBounds) -> sympy.
     - frustum_bounds: The bounds of the frustum defined in terms of relative displacements
     along the coordinate axes.
     - ndc_bounds: The bounds of the viewing volume in normalized device coordinates.
-    
+
     Returns:
     - An 4x4 orthographic projection matrix.
     """
@@ -235,7 +235,7 @@ def orthographic(frustum_bounds: FrustumBounds, ndc_bounds: NDCBounds) -> sympy.
     n = frustum_bounds.near
     f = frustum_bounds.far
 
-    h_min = ndc_bounds.horizontal_min 
+    h_min = ndc_bounds.horizontal_min
     h_max = ndc_bounds.horizontal_max
     v_min = ndc_bounds.vertical_min
     v_max = ndc_bounds.vertical_max
@@ -271,11 +271,12 @@ def orthographic(frustum_bounds: FrustumBounds, ndc_bounds: NDCBounds) -> sympy.
 
     return matrix
 
+
 def perspective_fov(frustum_fov_bounds: FrustumFovBounds, ndc_bounds: NDCBounds) -> sympy.Matrix:
     """
     Generate an instance of a perspective projection in the canonical orthonormal frames.
 
-    The **canonical view space** is a vector space with a left-handed orthonormal frame 
+    The **canonical view space** is a vector space with a left-handed orthonormal frame
     defined as follows.
 
     * The **origin** of the coordinate system is `[0, 0, 0]^T`.
@@ -299,7 +300,7 @@ def perspective_fov(frustum_fov_bounds: FrustumFovBounds, ndc_bounds: NDCBounds)
     is the specification based on defining the placement of the frustum bounds.
     We represent the frustum bounds by defining the placements with respect to the
     **view space** orthonormal frame vectors. More precisely, the fundamental
-    parametrization is given by the parameters `aspect_ratio`, `vfov`, `near`, and 
+    parametrization is given by the parameters `aspect_ratio`, `vfov`, `near`, and
     `far` such that
 
     * aspect_ratio > 0
@@ -307,7 +308,7 @@ def perspective_fov(frustum_fov_bounds: FrustumFovBounds, ndc_bounds: NDCBounds)
     * vfov         < pi
     * far          > near > 0
 
-    where the parameters define the placement of the planes. The plane placement 
+    where the parameters define the placement of the planes. The plane placement
     definitions follow.
 
     * `left` defines the location of the **left plane** by its distance along
@@ -340,7 +341,7 @@ def perspective_fov(frustum_fov_bounds: FrustumFovBounds, ndc_bounds: NDCBounds)
     - frustum_fov_bounds: The bounds of the frustum defined in terms of the vertical field
       of view and aspect ratio.
     - ndc_bounds: The bounds of the viewing volume in normalized device coordinates.
-    
+
     Returns:
     - A 4x4 perspective projection matrix.
     """
@@ -349,7 +350,7 @@ def perspective_fov(frustum_fov_bounds: FrustumFovBounds, ndc_bounds: NDCBounds)
     n = frustum_fov_bounds.near
     f = frustum_fov_bounds.far
 
-    h_min = ndc_bounds.horizontal_min 
+    h_min = ndc_bounds.horizontal_min
     h_max = ndc_bounds.horizontal_max
     v_min = ndc_bounds.vertical_min
     v_max = ndc_bounds.vertical_max
@@ -384,4 +385,3 @@ def perspective_fov(frustum_fov_bounds: FrustumFovBounds, ndc_bounds: NDCBounds)
     ])
 
     return matrix
-
