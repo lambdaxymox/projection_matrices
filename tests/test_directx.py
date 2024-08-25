@@ -11,6 +11,7 @@ def change_of_orientation_lh_to_rh() -> sympy.Matrix:
         [ 0, 0,  0, 1 ]
     ])
 
+
 def change_of_orientation_rh_to_lh() -> sympy.Matrix:
     return sympy.Matrix([
         [ 1, 0,  0, 0 ],
@@ -20,7 +21,7 @@ def change_of_orientation_rh_to_lh() -> sympy.Matrix:
     ])
 
 
-class TestMetalLeftHanded:
+class TestDirectXLeftHanded:
     def test_perspective_projection_asymmetric(self):
         l, r, b, t, n, f = sympy.symbols('l r b t n f')
         frustum_bounds = pm.FrustumBounds(l, r, b, t, n, f)
@@ -39,7 +40,6 @@ class TestMetalLeftHanded:
         
         assert result.equals(expected)
     
-
     def test_perspective_fov_projection_symmetric(self):
         aspect, theta_vfov, n, f = sympy.symbols('aspect theta_vfov n f')
         frustum_bounds = pm.FrustumFovBounds(aspect, theta_vfov, n, f)
@@ -84,7 +84,7 @@ class TestMetalLeftHanded:
         assert result.equals(expected)
 
 
-class TestMetalRightHanded:
+class TestDirectXRightHanded:
     def test_perspective_projection_asymmetric(self):
         l, r, b, t, n, f = sympy.symbols('l r b t n f')
         frustum_bounds = pm.FrustumBounds(l, r, b, t, n, f)

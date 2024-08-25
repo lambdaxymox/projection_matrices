@@ -11,6 +11,7 @@ def change_of_orientation_lh_to_rh() -> sympy.Matrix:
         [ 0, 0,  0, 1 ]
     ])
 
+
 def change_of_orientation_rh_to_lh() -> sympy.Matrix:
     return sympy.Matrix([
         [ 1, 0,  0, 0 ],
