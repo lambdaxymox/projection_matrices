@@ -4,9 +4,7 @@
 format: jb-book
 root: intro
 chapters:
-- file: markdown
-- file: notebooks
-- file: markdown-notebooks
+- file: projection_matrices.ipynb
 - file: projections_directx.ipynb
 - file: projections_metal.ipynb
 - file: projections_opengl.ipynb
